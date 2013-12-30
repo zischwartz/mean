@@ -33,7 +33,7 @@ module.exports = function(grunt) {
                 },
             },
             css: {
-                files: ['public/css/*.css'],
+                files: ['public/css/common.css'],
                 options: {
                     livereload: true
                 }
