@@ -11,6 +11,14 @@ module.exports = function(grunt) {
                     livereload: true,
                 },
             },
+            coffee: {
+                files: ['public/**/*.coffee', 'public/js/*.coffee'],
+                tasks: ['coffee'],
+                options: {
+                    livereload: true,
+                    atBegin: true,
+                },
+            },
             js: {
                 files: ['gruntfile.js', 'server.js', 'app/**/*.js', 'public/js/**', 'test/**/*.js'],
                 tasks: ['jshint'],
@@ -77,10 +85,21 @@ module.exports = function(grunt) {
             unit: {
                 configFile: 'test/karma/karma.conf.js'
             }
-        }
+        },
+        coffee: {
+            compile: {
+                files: [
+                  {
+                    expand: true,
+                    src: ['public/js/*.coffee', 'public/js/**/*.coffee'],
+                    ext: '.js',
+                  },
+                ],
+            }
+        },
     });
 
-    //Load NPM tasks 
+    //Load NPM tasks
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-test');
@@ -88,6 +107,7 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-env');
+    grunt.loadNpmTasks('grunt-contrib-coffee');
 
     //Making grunt default to force in order not to break the project.
     grunt.option('force', true);
