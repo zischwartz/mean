@@ -20,8 +20,8 @@ module.exports = function(grunt) {
                 },
             },
             js: {
-                files: ['gruntfile.js', 'server.js', 'app/**/*.js', 'public/js/**', 'test/**/*.js'],
-                tasks: ['jshint'],
+                files: ['gruntfile.js', 'server.js', 'app/**/*.js', 'test/**/*.js'],
+                // tasks: ['jshint'],
                 options: {
                     livereload: true,
                 },
@@ -33,15 +33,23 @@ module.exports = function(grunt) {
                 },
             },
             css: {
-                files: ['public/css/**'],
+                files: ['public/css/*.css'],
                 options: {
+                    livereload: true
+                }
+            },
+            less: {
+                files: ['public/css/*.less'],
+                tasks: ['less'],
+                options: {
+                    atBegin: true,
                     livereload: true
                 }
             }
         },
         jshint: {
             all: {
-                src: ['gruntfile.js', 'server.js', 'app/**/*.js', 'public/js/**', 'test/**/*.js'],
+                src: ['gruntfile.js', 'server.js', 'app/**/*.js', 'test/**/*.js'],
                 options: {
                     jshintrc: true
                 }
@@ -97,17 +105,24 @@ module.exports = function(grunt) {
                 ],
             }
         },
+        less: {
+            development: {
+                options: {paths:['public/css']},
+                files: {'public/css/style.css':'public/css/*.less'}
+            }
+        },
     });
 
     //Load NPM tasks
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-jshint');
+    // grunt.loadNpmTasks('grunt-contrib-jshint');
     grunt.loadNpmTasks('grunt-mocha-test');
     grunt.loadNpmTasks('grunt-karma');
     grunt.loadNpmTasks('grunt-nodemon');
     grunt.loadNpmTasks('grunt-concurrent');
     grunt.loadNpmTasks('grunt-env');
     grunt.loadNpmTasks('grunt-contrib-coffee');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
     //Making grunt default to force in order not to break the project.
     grunt.option('force', true);
