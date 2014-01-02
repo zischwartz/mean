@@ -1,3 +1,6 @@
+# run with
+#    >  fab vagrant install_node install_app install_mongo
+
 from fabric.api import env, local, run, sudo, cd
 
 def vagrant():
